@@ -22,14 +22,39 @@ class Category
     #[ORM\ManyToMany(targetEntity: Deal::class, mappedBy: 'deal')]
     private Collection $deals;
 
-    public function __construct()
+    public function __construct(string $name)
     {
+        $this->name = $name;
         $this->deals = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function getDeals(): Collection
+    {
+        return $this->deals;
+    }
+
+    public function addDeal(Deal $deal): self
+    {
+        if (!$this->deals->contains($deal)) {
+            $this->deals[] = $deal;
+        }
+        return $this;
     }
 
 

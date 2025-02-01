@@ -121,5 +121,18 @@ class Deal
         return $this;
     }
 
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+        return $this;
+    }
+
 
 }
