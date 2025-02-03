@@ -34,7 +34,7 @@ class Deal
     #[ORM\Column]
     private ?bool $enable = null;
 
-    #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'category')]
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'deals')]
     private Collection $categories;
 
     public function __construct()

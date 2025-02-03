@@ -19,7 +19,7 @@ class Category
     private ?string $name = null;
 
 
-    #[ORM\ManyToMany(targetEntity: Deal::class, mappedBy: 'deal')]
+    #[ORM\ManyToMany(targetEntity: Deal::class, mappedBy: 'categories')]
     private Collection $deals;
 
     public function __construct(string $name)
