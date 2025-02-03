@@ -25,6 +25,17 @@ class DealRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function getAllWhereEnable()
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.enable = :enable')
+            ->setParameter('enable', true)
+            ->orderBy('d.created_at', 'DESC')
+            ->getQuery()
+            ->getResult();
+
+    }
+
     //    /**
     //     * @return Deal[] Returns an array of Deal objects
     //     */

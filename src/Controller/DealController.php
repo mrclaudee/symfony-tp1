@@ -24,6 +24,9 @@ class DealController extends AbstractController
     #[Route('/deal/list', name: 'deal_list_2', methods: ['GET'])]
     public function index(): Response
     {
+        $em = $this->doctrine->getManager();
+        $deals = $em->getRepository(Deal::class)->getAllWhereEnable();
+        dd($deals);
         return new Response("<html lang='fr'><body><h1>La list</h1></body></html>");
     }
 
@@ -31,7 +34,7 @@ class DealController extends AbstractController
     public function show($dealId)
     {
         $deal = $this->dealRepository->find($dealId);
-        dd($deal->getCategories()->count());
+        dd($deal);
         return new Response("<html lang='fr'><body><h1>Le dealId est $dealId </h1></body></html>");
     }
 
