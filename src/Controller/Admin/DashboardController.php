@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class DashboardController extends AbstractDashboardController
 {
     //#[AdminDashboard(routePath: '/admin', routeName: 'admin')]
-    #[Route('/admin', name: 'admin', methods: ['GET'])]
+    #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
         // return parent::index();

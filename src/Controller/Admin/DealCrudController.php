@@ -26,7 +26,6 @@ class DealCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('name'),
             TextEditorField::new('description'),
-            DateTimeField::new('created_at'),
             BooleanField::new('enable'),
             MoneyField::new('price')->setCurrency('EUR'),
             AssociationField::new('categories'),
