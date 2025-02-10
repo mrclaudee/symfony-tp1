@@ -21,13 +21,12 @@ class DealController extends AbstractController
     }
 
     // #[Route('/', name: 'deal_list', methods: ['GET'])]
-    #[Route('/deal/list', name: 'deal_list_2', methods: ['GET'])]
+    #[Route('/deal/list', name: 'deal_list', methods: ['GET'])]
     public function index(): Response
     {
         $em = $this->doctrine->getManager();
         $deals = $em->getRepository(Deal::class)->getAllWhereEnable();
-        dd($deals);
-        return new Response("<html lang='fr'><body><h1>La list</h1></body></html>");
+        return $this->render('index.html.twig', ['deals' => $deals]);
     }
 
     #[Route('/deal/show/{dealId}', name: 'deal_show', requirements: ['dealId'=>'\d+'], methods: ['GET'])]
