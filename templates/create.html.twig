@@ -1,4 +1,14 @@
-{% form_theme form 'foundation_5_layout.html.twig' %}
-{{ form_start(form) }}
-{{ form_widget(form) }}
-{{ form_end(form) }}
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ site.name }}
+{% endblock %}
+
+{% block body %}
+    <div class="container p-5">
+        <h2>Ajouter un deal</h2>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
