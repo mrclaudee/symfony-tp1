@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\DealRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -16,6 +17,7 @@ class Deal
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
@@ -28,9 +30,12 @@ class Deal
     #[ORM\Column(nullable: true)]
     private ?\DateTime $updated_at = null;
 
+    #[Assert\NotBlank]
+    #[Assert\GreaterThan(0)]
     #[ORM\Column]
     private ?float $price = null;
 
+    #[Assert\EqualTo(true)]
     #[ORM\Column]
     private ?bool $enable = null;
 
