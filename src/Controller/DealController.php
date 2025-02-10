@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Deal;
 use App\Repository\DealRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -25,8 +26,8 @@ class DealController extends AbstractController
     public function index(): Response
     {
         $em = $this->doctrine->getManager();
-        $deals = $em->getRepository(Deal::class)->getAllWhereEnable();
-        return $this->render('index.html.twig', ['deals' => $deals]);
+        $categories = $em->getRepository(Category::class)->findAll();
+        return $this->render('index.html.twig', ['categories' => $categories]);
     }
 
     #[Route('/deal/show/{dealId}', name: 'deal_show', requirements: ['dealId'=>'\d+'], methods: ['GET'])]

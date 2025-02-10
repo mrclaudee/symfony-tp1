@@ -4,3 +4,13 @@
 {{ site.name }}
 {% endblock %}
 
+{% block body %}
+    {% for category in categories %}
+        {{ category.name | upper }} <br>
+        <ul>
+        {% for deal in category.deals %}
+            <li>Nom <a href="{{ path('deal_show', {dealId: deal.id}) }}">{{ deal.name }}</a> - Prix: {{ deal.price }} - [{{ deal.description | striptags }}] - {{ deal.createdAt | date('m/d/Y') }}</li>
+        {%  endfor %}
+        </ul>
+    {% endfor %}
+{% endblock %}
