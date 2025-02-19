@@ -13,7 +13,7 @@
                 <a href="{{ path('admin') }}">Dashboard</a>
             {% endif %}
         {% else %}
-                <form method="post">
+                <form method="post" class="mb-3">
                     {% if error %}
                         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                     {% endif %}
@@ -41,6 +41,7 @@
                         Sign in
                     </button>
                 </form>
+            <a href="{{ path('app_register') }}">Register</a>
         {% endif %}
 
     </div>
