@@ -6,8 +6,10 @@ use App\Entity\Category;
 use App\Entity\Deal;
 use App\Form\DealFormType;
 use App\Repository\DealRepository;
+use App\Services\RandomDiscount;
+use App\Services\RandomSlogan;
 use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\Persistence\ObjectManager;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,11 +27,17 @@ class DealController extends AbstractController
 
     // #[Route('/', name: 'deal_list', methods: ['GET'])]
     #[Route('/deal/list', name: 'deal_list', methods: ['GET'])]
-    public function index(): Response
+    public function index(RandomSlogan $randomSlogan, RandomDiscount $randomDiscount): Response
     {
         $em = $this->doctrine->getManager();
+        $ran = $randomSlogan->getSlogan();
+        $discount = $randomDiscount->generate();
         $categories = $em->getRepository(Category::class)->findAll();
-        return $this->render('index.html.twig', ['categories' => $categories]);
+        return $this->render('index.html.twig', [
+            'categories' => $categories,
+            'ran' => $ran,
+            'discount' => $discount
+        ]);
     }
 
     #[Route('/deal/show/{dealId}', name: 'deal_show', requirements: ['dealId'=>'\d+'], methods: ['GET'])]
@@ -41,7 +49,7 @@ class DealController extends AbstractController
     }
 
     #[Route('/deal/create', name: 'deal_create')]
-    public function create(Request $request): Response
+    public function create(Request $request, LoggerInterface $logger): Response
     {
         $deal = new Deal();
         $form = $this->createForm(DealFormType::class, $deal);
@@ -52,6 +60,7 @@ class DealController extends AbstractController
             $em->persist($deal);
             $em->flush();
             $this->addFlash('success', 'Deal enregistré!');
+            $logger->info("Le deal ". $deal->getName() . " vient d'être ajouté.");
             return $this->redirectToRoute('deal_list');
         }
         return $this->render('create.html.twig', ['form' => $form->createView()]);

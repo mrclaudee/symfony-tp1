@@ -6,6 +6,8 @@
 
 {% block body %}
 <div class="container p-5">
+    <h2>RandomSlogan: {{ ran }}</h2>
+    <h2>RandomDiscount: {{ discount }}%</h2>
     {% for label, messages in app.flashes(['warning', 'error', 'success']) %}
         {% for message in messages %}
             <div class="alert alert-{{ label }}">
