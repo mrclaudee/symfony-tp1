@@ -8,6 +8,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\LogicException;
+use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -54,12 +56,27 @@ class DealPriceIncreaseCommand extends Command
 
         if ($all) {
             $deals = $this->doctrine->getRepository(Deal::class)->findAll();
+            $progress = new ProgressBar($output, count($deals));
+            $table = new Table($output);
+            $table->setHeaders(['Id', 'Ancien prix', 'Nouveau prix']);
+            $progress->start();
             foreach ($deals as $deal) {
                 $deal->setPrice($deal->getPrice() + $amount);
                 $em->persist($deal);
                 $em->flush();
+                //sleep(1);
+                $progress->advance();
             }
-            $output->writeln('<info>La hausse des prix a été effectuée.</info>');
+            $progress->finish();
+
+            $rows = [];
+            foreach ($deals as $deal) {
+                $row = [$deal->getId(), $deal->getPrice() - $amount, $deal->getPrice()];
+                $rows[] = $row;
+            }
+            $table->setRows($rows);
+            $output->writeln(['', '', 'Récapitulatif']);
+            $table->render();
         }
 
         if ($id) {
@@ -71,7 +88,7 @@ class DealPriceIncreaseCommand extends Command
             $deal->setPrice($deal->getPrice() + $amount);
             $em->persist($deal);
             $em->flush();
-            $output->writeln('<info>La hausse du prix a été effectuée.</info>');
+            $output->writeln('<info>Hausse du prix de l\'id '. $deal->getId(). ' de '. $deal->getPrice() - $amount .' à '. $deal->getPrice() .'.</info>');
         }
 
         return Command::SUCCESS;
