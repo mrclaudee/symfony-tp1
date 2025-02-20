@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Gifs
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <form method="get" class="mt-3 mb-5">
+            <input class="form-control mb-2" type="search" name="name" id="name" placeholder="Search a gif">
+            <button type="submit" class="btn btn-success w-100">Search</button>
+        </form>
+        {% if gifs %}
+            <div class="container ml-3">
+                <div class="row flex flex-wrap">
+                    <div class="col">
+                        {% for gif in gifs %}
+                            <img src="{{ gif }}" alt="" class="me-1 mb-3" height="400px" width="32%">
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p>Pas de gifs trouvé.</p>
+        {% endif %}
+
+    </div>
+{% endblock %}
