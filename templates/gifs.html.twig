@@ -15,7 +15,7 @@
                 <div class="row flex flex-wrap">
                     <div class="col">
                         {% for gif in gifs %}
-                            <img src="{{ gif }}" alt="" class="me-1 mb-3" height="400px" width="32%">
+                            <img src="{{ gif }}" alt="" class="me-2 mb-2" height="400px" width="32%">
                         {% endfor %}
                     </div>
                 </div>
@@ -23,6 +23,5 @@
         {% else %}
             <p>Pas de gifs trouvé.</p>
         {% endif %}
-
     </div>
 {% endblock %}
