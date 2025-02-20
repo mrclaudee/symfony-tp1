@@ -24,8 +24,7 @@ class DealFormType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
             ])
-            ->add('save', SubmitType::class, ['label' => 'Créer le deal'])
-        ;
+            ->add('save', SubmitType::class, ['label' => 'Créer le deal']);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
