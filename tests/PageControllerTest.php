@@ -35,6 +35,23 @@ class PageControllerTest extends WebTestCase
         $client->submit($form);
         $this->assertResponseStatusCodeSame(302);
         $this->assertResponseRedirects('/deal/list');
+    }
 
+    public function testItemOnHomePage(): void
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/deal/list');
+        $item = $crawler->filter("a[href='/deal/show/52']");
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(1, $item->count());
+    }
+
+    public function testNbOfDealsOnHomePage(): void
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/deal/list');
+        $item = $crawler->filter("li");
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(12, $item->count());
     }
 }
