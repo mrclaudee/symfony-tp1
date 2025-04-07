@@ -44,7 +44,7 @@ class DealController extends AbstractController
     public function show($dealId)
     {
         $deal = $this->dealRepository->find($dealId);
-        dd($deal);
+        // dd($deal);
         return new Response("<html lang='fr'><body><h1>Le dealId est $dealId </h1></body></html>");
     }
 

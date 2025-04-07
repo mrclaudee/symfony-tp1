@@ -28,7 +28,7 @@ class DealPriceIncreaseCommand extends Command
         $this->doctrine = $doctrine;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription('Ajoute les prix sur un ou tous les articles')
             ->addArgument('amount', InputArgument::REQUIRED, 'Quel est le montant ?')
