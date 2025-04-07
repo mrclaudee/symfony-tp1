@@ -165,6 +165,7 @@
       <path value="$PROJECT_DIR$/vendor/api-platform/metadata" />
       <path value="$PROJECT_DIR$/vendor/api-platform/hydra" />
       <path value="$PROJECT_DIR$/vendor/api-platform/json-schema" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php84" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
